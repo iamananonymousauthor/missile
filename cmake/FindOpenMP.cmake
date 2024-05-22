@@ -1,0 +1,8 @@
+macro(find_openmp use_openmp)
+    find_package ( OpenMP )
+    if ( OpenMP_FOUND )
+        list ( APPEND PRJ_COMPILE_DEF ENABLE_OPENMP )
+        list ( APPEND PRJ_LIBRARIES ${OpenMP_CXX_LIBRARIES} )
+        list ( APPEND PRJ_COMPILE_OPTIONS ${OpenMP_CXX_FLAGS} )
+    endif ()
+endmacro(find_openmp)

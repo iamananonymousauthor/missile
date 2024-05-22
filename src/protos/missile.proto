@@ -1,0 +1,99 @@
+syntax = "proto3";
+
+package missile.rpc;
+
+service MISSILEService {
+  // load a DNN model
+  rpc LoadModel (LoadModelRequest) returns (LoadModelReply) {}
+
+  // create a Task queue
+  rpc SetPriority (SetPriorityRequest) returns (SetPriorityReply) {} 
+
+  // register shared memory
+  rpc RegisterBlob (RegisterBlobRequest) returns (RegisterBlobReply) {}
+
+  // memcpy device to host
+  rpc GetBlob (GetBlobRequest) returns (GetBlobReply) {}
+
+  // memcpy host to device
+  rpc SetBlob (SetBlobRequest) returns (SetBlobReply) {}
+
+  // create an inference task
+  rpc Infer (InferRequest) returns (InferReply) {}
+
+  // logout a model
+  rpc Logout (LogoutRequest) returns (LogoutReply) {}
+}
+
+message LoadModelRequest {
+  string dir = 1;
+  string name = 2;
+  int32 qid = 3;
+  bool rt = 4;
+  int32 estimated_runtime_ms = 5;
+  int32 slo_ms = 6;
+}
+
+message LoadModelReply {
+  bool succ = 1; // TODO: enums
+  int32 mid = 2;
+}
+
+message SetPriorityRequest {
+  bool rt = 1;
+  int32 perc_sm_request = 2;
+  int32 perc_sm_limit = 3;
+  int32 alloc_memory_size_kib = 4; // Only applicable to RT tasks
+  int32 perc_pcie_bandwidth = 5;
+}
+
+message SetPriorityReply {
+  bool succ = 1;
+  int32 qid = 2;
+}
+
+message RegisterBlobRequest {
+  int32 mid = 1;
+  string name = 2;
+}
+
+message RegisterBlobReply {
+  bool succ = 1;
+  string key = 2;
+  int64 size = 3;
+}
+
+message GetBlobRequest {
+  string key = 1;
+}
+
+message GetBlobReply {
+  bool succ = 1; 
+}
+
+message SetBlobRequest {
+  string key = 1;
+}
+
+message SetBlobReply {
+  bool succ = 1; 
+}
+
+message InferRequest {
+  int32 mid = 1;
+  bool async = 2;
+}
+
+message InferReply {
+  bool succ = 1;
+  int32 tid = 2;
+  int32 response = 3;
+}
+
+message LogoutRequest {
+  int32 mid = 1;
+}
+
+message LogoutReply {
+  bool succ = 1;
+}
