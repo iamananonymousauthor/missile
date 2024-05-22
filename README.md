@@ -73,13 +73,21 @@ Memory: 32 GiB (or larger)
 ##### Software Prerequisites
 
 **OS:** Ubuntu 20.04 (kernel version: 5.15.0-105-generic)
+
 **GPU Driver:** [NVIDIA Driver 535.129.03](https://www.nvidia.com/download/driverResults.aspx/213194/en-us/)
+
 **CUDA:** 11.8
+
 **Python:** 3.8
-**C&C++:** gcc (Ubuntu 9.4.0-1ubuntu1~20.04.2) 9.4.0, g++ (Ubuntu 9.4.0-1ubuntu1~20.04.2) 9.4.0
+
+**C&C++:** gcc 9.4.0, g++ 9.4.0
+
 **CMake:** 3.25.0
+
 **LLVM:** 10.0.0
+
 **TVM:** 1.14.0
+
 **C++ Libraries:** RapidJson (included in this repository), grpc, glog, gtest, Boost
 
 #### ✈️ Quick Start
