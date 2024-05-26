@@ -260,7 +260,6 @@ void SpatialMultiplexingScheduler::loop_body_gpu_launch_rt_kernel_orion() {
         rt_kernel_profile = rt_kernel_profile_tmp;
         //ASSERT_GPU_ERROR(GPUStreamSynchronize(rt_gpu_launch_kernel_stream));
         //has_rt_kernel_running.store(false);
-        rt_kernel_profile = KernelProfile();
         if(rt_task_gpu_launch_kernel_queues[selected_rt_qid]->empty()) {
             rt_task_gpu_launch_kernel_queues[selected_rt_qid]->notify_empty();
         }

@@ -13,7 +13,7 @@
 namespace missilebase {
 namespace client {
 
-using missilebase::rpc::MISSILEService;
+using missile::rpc::MISSILEService;
 
 class TaskHandle {
 public:

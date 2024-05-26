@@ -21,8 +21,8 @@ bool MISSILEClient::init(bool real_time, int perc_sm_request,
                       int perc_sm_limit, int alloc_memory_size_kib, int perc_pcie_bandwidth) {
     // set client (task queue) priority
     grpc::ClientContext ctx;
-    missilebase::rpc::SetPriorityRequest request;
-    missilebase::rpc::SetPriorityReply reply;
+    missile::rpc::SetPriorityRequest request;
+    missile::rpc::SetPriorityReply reply;
     request.set_rt(real_time);
     request.set_perc_sm_request(perc_sm_request);
     request.set_perc_sm_limit(perc_sm_limit);
@@ -43,8 +43,8 @@ std::shared_ptr<ModelHandle> MISSILEClient::load_model(
     const int slo_ms
 ) {
     grpc::ClientContext ctx;
-    missilebase::rpc::LoadModelRequest request;
-    missilebase::rpc::LoadModelReply reply;
+    missile::rpc::LoadModelRequest request;
+    missile::rpc::LoadModelReply reply;
     LOG(INFO) << "Loading model " << name;
     request.set_rt(real_time);
     request.set_dir(model_dir);
@@ -78,8 +78,8 @@ ModelHandle::ModelHandle(
 // submit an inference task. wait for completion.
 TaskHandle ModelHandle::infer() {
     grpc::ClientContext ctx;
-    missilebase::rpc::InferRequest request;
-    missilebase::rpc::InferReply reply;
+    missile::rpc::InferRequest request;
+    missile::rpc::InferReply reply;
     request.set_mid(mid);
     TaskHandle t;
     t.submit = std::chrono::system_clock::now();
@@ -114,8 +114,8 @@ std::shared_ptr<util::SharedMemory> ModelHandle::get_output_blob(const std::stri
 
 std::shared_ptr<util::SharedMemory> ModelHandle::register_blob(const std::string& name, std::string& key) {
     grpc::ClientContext ctx;
-    missilebase::rpc::RegisterBlobRequest request;
-    missilebase::rpc::RegisterBlobReply reply;
+    missile::rpc::RegisterBlobRequest request;
+    missile::rpc::RegisterBlobReply reply;
 
     request.set_mid(mid);
     request.set_name(name);
@@ -133,8 +133,8 @@ std::shared_ptr<util::SharedMemory> ModelHandle::register_blob(const std::string
 void ModelHandle::load_input() {
     ASSERT(input_blob.get() != nullptr);
     grpc::ClientContext ctx;
-    missilebase::rpc::SetBlobRequest request;
-    missilebase::rpc::SetBlobReply reply;
+    missile::rpc::SetBlobRequest request;
+    missile::rpc::SetBlobReply reply;
     request.set_key(input_blob_key);
     auto status = rpc_client->SetBlob(&ctx, request, &reply);
     ASSERT_MSG(status.ok(), status.error_message());
@@ -145,8 +145,8 @@ void ModelHandle::load_input() {
 void ModelHandle::get_output() {
     ASSERT(output_blob.get() != nullptr);
     grpc::ClientContext ctx;
-    missilebase::rpc::GetBlobRequest request;
-    missilebase::rpc::GetBlobReply reply;
+    missile::rpc::GetBlobRequest request;
+    missile::rpc::GetBlobReply reply;
     request.set_key(output_blob_key);
     auto status = rpc_client->GetBlob(&ctx, request, &reply);
     ASSERT_MSG(status.ok(), status.error_message());
@@ -160,8 +160,8 @@ int32_t ModelHandle::get_mid() const {
 // submit an inference task. wait for completion.
 void ModelHandle::logout() {
         /*grpc::ClientContext ctx;
-        missilebase::rpc::LogoutRequest request;
-        missilebase::rpc::LogoutReply reply;
+        missile::rpc::LogoutRequest request;
+        missile::rpc::LogoutReply reply;
         request.set_mid(mid);
         TaskHandle t;
         t.submit = std::chrono::system_clock::now();

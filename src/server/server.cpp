@@ -62,8 +62,8 @@ void MISSILEServer::shutdown() {
 
 grpc::Status MISSILEServer::SetPriority(
     grpc::ServerContext *context,
-    const missilebase::rpc::SetPriorityRequest *request,
-    missilebase::rpc::SetPriorityReply *reply
+    const missile::rpc::SetPriorityRequest *request,
+    missile::rpc::SetPriorityReply *reply
 ) {
     LOG(INFO) << "new client, real_time: " << request->rt() << " / " << request->perc_sm_request() 
               << " / " << request->perc_sm_limit() << " / " << request->alloc_memory_size_kib() 
@@ -91,8 +91,8 @@ grpc::Status MISSILEServer::SetPriority(
 }
 
 grpc::Status MISSILEServer::LoadModel( grpc::ServerContext *context,
-                                    const missilebase::rpc::LoadModelRequest *request,
-                                    missilebase::rpc::LoadModelReply *reply) {
+                                    const missile::rpc::LoadModelRequest *request,
+                                    missile::rpc::LoadModelReply *reply) {
     LOG(INFO) << "load model: " << request->name() << ", qid: " << request->qid();
     std::string prefix = request->dir() + "/" + request->name();
     std::string param_file = prefix + ".param";
@@ -194,8 +194,8 @@ grpc::Status MISSILEServer::LoadModel( grpc::ServerContext *context,
 
 grpc::Status MISSILEServer::RegisterBlob(
     grpc::ServerContext *context,
-    const missilebase::rpc::RegisterBlobRequest *request,
-    missilebase::rpc::RegisterBlobReply *reply
+    const missile::rpc::RegisterBlobRequest *request,
+    missile::rpc::RegisterBlobReply *reply
 ) {
     reply->set_succ(false);
     size_t size;
@@ -222,8 +222,8 @@ grpc::Status MISSILEServer::RegisterBlob(
 
 grpc::Status MISSILEServer::GetBlob(
     grpc::ServerContext *context,
-    const missilebase::rpc::GetBlobRequest *request,
-    missilebase::rpc::GetBlobReply *reply
+    const missile::rpc::GetBlobRequest *request,
+    missile::rpc::GetBlobReply *reply
 ) {
     SharedMemoryInfo shminfo;
     {
@@ -246,8 +246,8 @@ grpc::Status MISSILEServer::GetBlob(
 
 grpc::Status MISSILEServer::SetBlob(
     grpc::ServerContext *context,
-    const missilebase::rpc::SetBlobRequest *request,
-    missilebase::rpc::SetBlobReply *reply
+    const missile::rpc::SetBlobRequest *request,
+    missile::rpc::SetBlobReply *reply
 ) {
     SharedMemoryInfo shminfo;
     {
@@ -270,8 +270,8 @@ grpc::Status MISSILEServer::SetBlob(
 
 grpc::Status MISSILEServer::Infer(
     grpc::ServerContext *context,
-    const missilebase::rpc::InferRequest *request,
-    missilebase::rpc::InferReply *reply
+    const missile::rpc::InferRequest *request,
+    missile::rpc::InferReply *reply
 ) {
     TaskID tid;
     auto s = scheduler->new_task(request->mid(), tid);
@@ -291,8 +291,8 @@ grpc::Status MISSILEServer::Infer(
 
 grpc::Status MISSILEServer::Logout(
         grpc::ServerContext *context,
-        const missilebase::rpc::LogoutRequest *request,
-        missilebase::rpc::LogoutReply *reply
+        const missile::rpc::LogoutRequest *request,
+        missile::rpc::LogoutReply *reply
 ) {
     TaskID tid;
     auto s = scheduler->logout_model(request->mid());

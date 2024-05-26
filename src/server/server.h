@@ -10,7 +10,7 @@ namespace missilebase {
 namespace server {
 
 
-class MISSILEServer final : public missilebase::rpc::MISSILEService::Service {
+class MISSILEServer final : public missile::rpc::MISSILEService::Service {
 public:
     MISSILEServer(const SchedulerType& type, const std::string& addr, const uint32_t cfs_period);
     virtual ~MISSILEServer() {}
@@ -28,44 +28,44 @@ private:
     // RPC handles
     grpc::Status SetPriority(
         grpc::ServerContext *context,
-        const missilebase::rpc::SetPriorityRequest *request,
-        missilebase::rpc::SetPriorityReply *reply
+        const missile::rpc::SetPriorityRequest *request,
+        missile::rpc::SetPriorityReply *reply
     ) override;
 
     grpc::Status LoadModel(
         grpc::ServerContext *context,
-        const missilebase::rpc::LoadModelRequest *request,
-        missilebase::rpc::LoadModelReply *reply
+        const missile::rpc::LoadModelRequest *request,
+        missile::rpc::LoadModelReply *reply
     ) override;
 
     grpc::Status RegisterBlob(
         grpc::ServerContext *context,
-        const missilebase::rpc::RegisterBlobRequest *request,
-        missilebase::rpc::RegisterBlobReply *reply
+        const missile::rpc::RegisterBlobRequest *request,
+        missile::rpc::RegisterBlobReply *reply
     ) override;
     
     grpc::Status GetBlob(
         grpc::ServerContext *context,
-        const missilebase::rpc::GetBlobRequest *request,
-        missilebase::rpc::GetBlobReply *reply
+        const missile::rpc::GetBlobRequest *request,
+        missile::rpc::GetBlobReply *reply
     ) override;
 
     grpc::Status SetBlob(
         grpc::ServerContext *context,
-        const missilebase::rpc::SetBlobRequest *request,
-        missilebase::rpc::SetBlobReply *reply
+        const missile::rpc::SetBlobRequest *request,
+        missile::rpc::SetBlobReply *reply
     ) override;
 
     grpc::Status Infer(
             grpc::ServerContext *context,
-            const missilebase::rpc::InferRequest *request,
-            missilebase::rpc::InferReply *reply
+            const missile::rpc::InferRequest *request,
+            missile::rpc::InferReply *reply
     ) override;
 
     grpc::Status Logout(
             grpc::ServerContext *context,
-            const missilebase::rpc::LogoutRequest *request,
-            missilebase::rpc::LogoutReply *reply
+            const missile::rpc::LogoutRequest *request,
+            missile::rpc::LogoutReply *reply
     ) override;
 
 private:
